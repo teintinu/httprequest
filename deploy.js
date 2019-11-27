@@ -2,8 +2,8 @@ const path = require('path')
 const { execSync } = require('child_process')
 const pkg = require(path.join(process.cwd(), 'package.json'))
 
-if (!process.env.NPM_AUTH_TOKEN) {
-    console.log('Merge-release requires NPM_AUTH_TOKEN')
+if (!process.env.NPM_CONFIG_TOKEN) {
+    console.log('Merge-release requires NPM_CONFIG_TOKEN')
     process.exit(1)
 }
 
