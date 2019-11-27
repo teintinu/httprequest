@@ -1,4 +1,4 @@
-name: Build & 
+name: Build & Deploy
 on: [push]
 jobs:
   run:
@@ -19,7 +19,7 @@ jobs:
       run: npm install
 
     - name: Lint
-      run: npm run format-check
+      run: npm run lint
 
     - name: npm test
       run: npm test
