@@ -1,6 +1,6 @@
 {
   "name": "@hoda5/httprequest",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "bin/index.js",
   "types": "bin/index.d.ts",
@@ -21,7 +21,6 @@
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.14",
     "jest": "^24.9.0",
-    "release-it": "^12.4.3",
     "ts-jest": "^24.2.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
