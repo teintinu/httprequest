@@ -3,39 +3,34 @@ import { hostname } from "os";
 declare const window: any
 declare const require: any
 
+export interface HttpResponse<RESPONSE extends Uint8Array | string> {
+    status: number,
+    statusText: string,
+    headers: Record<string, string>,
+    response: RESPONSE,
+}
+
 export function httpRequest(
     method: string,
     url: string,
     requestData: Uint8Array | string,
     requestHeaders: Record<string, string>,
     responseIsBinary: true
-): Promise<{
-    status: number,
-    headers: Record<string, string>,
-    response: Uint8Array,
-}>
+): Promise<HttpResponse<Uint8Array>>
 export function httpRequest(
     method: string,
     url: string,
     requestData?: Uint8Array | string,
     requestHeaders?: Record<string, string>,
     responseIsBinary?: false | undefined
-): Promise<{
-    status: number,
-    headers: Record<string, string>,
-    response: string,
-}>
+): Promise<HttpResponse<string>>
 export function httpRequest(
     method: string,
     url: string,
     requestData?: Uint8Array | string,
     requestHeaders?: Record<string, string>,
     responseIsBinary?: boolean | undefined
-): Promise<{
-    status: number,
-    headers: Record<string, string>,
-    response: Uint8Array | string,
-}> {
+): Promise<HttpResponse<Uint8Array | string>> {
     const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
     const req = isBrowser ? browserHttpRequest : nodeHttpRequest
     return req(method, url, requestData, requestHeaders, responseIsBinary)
@@ -47,19 +42,11 @@ function browserHttpRequest(
     requestData?: Uint8Array | string,
     requestHeaders?: Record<string, string>,
     responseIsBinary?: boolean | undefined
-): Promise<{
-    status: number,
-    headers: Record<string, string>,
-    response: Uint8Array | string,
-}> {
+): Promise<HttpResponse<Uint8Array | string>> {
 
     const responseType = responseIsBinary ? 'arraybuffer' : 'string'
 
-    return new Promise<{
-        status: number,
-        headers: Record<string, string>,
-        response: Uint8Array | string,
-    }>((resolve, reject) => {
+    return new Promise<HttpResponse<Uint8Array | string>>((resolve, reject) => {
         try {
             let ajax = getAjax()
             ajax.onreadystatechange = function () {
@@ -67,6 +54,7 @@ function browserHttpRequest(
                 if (res.readyState === 4) {
                     resolve({
                         status: res.status,
+                        statusText: res.statusText,
                         headers: res.headers,
                         response: res.response,
                     })
@@ -104,16 +92,8 @@ function nodeHttpRequest(
     requestData?: Uint8Array | string,
     requestHeaders?: Record<string, string>,
     responseIsBinary?: boolean | undefined
-): Promise<{
-    status: number,
-    headers: Record<string, string>,
-    response: Uint8Array | string,
-}> {
-    return new Promise<{
-        status: number,
-        headers: Record<string, string>,
-        response: Uint8Array | string,
-    }>((resolve, reject) => {
+): Promise<HttpResponse<Uint8Array | string>> {
+    return new Promise<HttpResponse<Uint8Array | string>>((resolve, reject) => {
         try {
             const urlp = require('url').parse(url);
             const httpReq: any = require(urlp.protocol.replace(':', '')).request;
@@ -134,6 +114,7 @@ function nodeHttpRequest(
                     const response = responseIsBinary ? Uint8Array.from(Array.prototype.concat(...chunks)) : chunks.join('')
                     resolve({
                         status: res.statusCode,
+                        statusText: res.statusMessage,
                         headers: res.headers,
                         response
                     })
