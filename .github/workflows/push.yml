@@ -1,4 +1,4 @@
-name: Build & Deploy
+name: Build & Publish
 on: [push]
 jobs:
   run:
@@ -18,13 +18,11 @@ jobs:
     - name: npm install
       run: npm install
 
-    - name: Lint
+    - name: lint
       run: npm run lint
 
-#    - name: npm test
-#      run: npm test
-
-    - name: deploy
+    - name: publish
       env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_CONFIG_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      run: node ./deploy.js
+      run: npx custom-publish
