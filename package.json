@@ -1,6 +1,6 @@
 {
   "name": "@hoda5/httprequest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "bin/index.js",
   "types": "bin/index.d.ts",
@@ -11,7 +11,8 @@
     "testWithCoverage": "jest --coverage",
     "applyPrepack": "npm run build ; cd bin && mv index.js index-n.js && prepack index-n.js --out index.js && jest ",
     "coverage": "npm run testWithCoverage && sensible-browser file://$PWD/coverage/index.html",
-    "prepublish": "npm run testWithCoverage && npm run build"
+    "prepublish": "npm run testWithCoverage && npm run build",
+    "release": "release-it"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +21,10 @@
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.14",
     "jest": "^24.9.0",
+    "release-it": "^12.4.3",
     "ts-jest": "^24.2.0",
-    "typescript": "^3.7.2",
-    "tslint": "^5.20.1"
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
   },
   "dependencies": {
     "tslib": "^1.10.0"
