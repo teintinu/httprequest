@@ -26,5 +26,6 @@ jobs:
 
     - name: deploy
       run: node ./deploy.js
-
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
