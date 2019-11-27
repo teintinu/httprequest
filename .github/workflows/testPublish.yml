@@ -11,5 +11,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: test&publish
       run: |
+        npm install
         npm test
         npm publish
