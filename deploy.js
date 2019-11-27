@@ -2,7 +2,10 @@ const path = require('path')
 const { execSync } = require('child_process')
 const pkg = require(path.join(process.cwd(), 'package.json'))
 
-const exec = str => process.stdout.write(execSync(str))
+if (!process.env.NPM_AUTH_TOKEN) {
+    console.log('Merge-release requires NPM_AUTH_TOKEN')
+    process.exit(1)
+}
 
 const current = getCurrent()
 const version = pkg.version
@@ -15,11 +18,16 @@ else {
     exec(`git push merge-release --tags`)
 }
 
-
 function getCurrent() {
     try {
         return execSync(`npm view "${pkg.name}" version`).toString().trim()
     } catch (e) {
         return '?'
     }
+}
+
+function exec(str) {
+    console.log('')
+    console.log('>', str)
+    return process.stdout.write(execSync(str))
 }
