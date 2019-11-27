@@ -107,11 +107,14 @@ function nodeHttpRequest(
             if (requestHeaders) options.headers = requestHeaders
 
             const req = httpReq(options, (res: any) => {
-                const chunks: any[] = []
+                let chunks: any[] = []
 
                 res.on('data', (d: any) => chunks.push(d))
                 res.on('end', () => {
-                    const response = responseIsBinary ? Uint8Array.from(Array.prototype.concat(...chunks)) : chunks.join('')
+                    const response = responseIsBinary ? (() => {
+                        chunks = chunks.map((c) => Array.from(c))
+                        return Uint8Array.from(Array.prototype.concat(...chunks))
+                    })() : chunks.join('')
                     resolve({
                         status: res.statusCode,
                         statusText: res.statusMessage,
@@ -122,6 +125,7 @@ function nodeHttpRequest(
             });
 
             req.on('error', reject);
+            if (requestData instanceof Uint8Array) requestData = Buffer.from(requestData)
             if (requestData) req.write(requestData)
             req.end();
 

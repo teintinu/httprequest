@@ -1,7 +1,7 @@
 import "tslib"
 import { httpRequest } from ".."
 
-describe('Dummy', () => {
+describe('jsonplaceholder', () => {
 
   it('POST /create', async () => {
     const postReq = {
