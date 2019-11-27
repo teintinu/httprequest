@@ -15,7 +15,7 @@ else {
     console.log('deploying version:', version, ' last published is:', current)
     exec(`npm publish --access=public`)
     exec(`git tag ${version}`)
-    exec(`git push merge-release --tags`)
+    exec(`git push --tags`)
 }
 
 function getCurrent() {
@@ -29,6 +29,10 @@ function getCurrent() {
 
 function exec(str) {
     console.log('')
-    console.log('>', str)
-    return process.stdout.write(execSync(str))
+    console.log('deploy$ ', str)
+    try {
+        process.stdout.write(execSync(str))
+    } catch (e) {
+        console.log(e)
+    }
 }
