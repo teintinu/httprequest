@@ -22,6 +22,7 @@ function getCurrent() {
     try {
         return execSync(`npm view "${pkg.name}" version`).toString().trim()
     } catch (e) {
+        console.log(e)
         return '?'
     }
 }
