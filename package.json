@@ -1,0 +1,28 @@
+{
+  "name": "@hoda5/binbuffer",
+  "version": "1.0.5",
+  "description": "",
+  "main": "bin/index.js",
+  "types": "bin/index.d.ts",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "jest",
+    "testWithCoverage": "jest --coverage",
+    "applyPrepack": "npm run build ; cd bin && mv index.js index-n.js && prepack index-n.js --out index.js && jest ",
+    "coverage": "npm run testWithCoverage && sensible-browser file://$PWD/coverage/index.html",
+    "prepublish": "npm run testWithCoverage && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.2",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  }
+}

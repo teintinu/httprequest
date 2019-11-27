@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "declaration": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "lib": [
+      "esnext"
+    ],
+    "noEmitHelpers": true,
+    "outDir": "bin",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
