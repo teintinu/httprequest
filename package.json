@@ -1,6 +1,6 @@
 {
   "name": "@hoda5/httprequest",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "bin/index.js",
   "types": "bin/index.d.ts",
@@ -20,13 +20,13 @@
   "devDependencies": {
     "@types/node": "^12.12.14",
     "@types/jest": "^24.0.23",
-    "jest": "^24.9.0",
     "ts-jest": "^24.2.0",
+    "jest": "^24.9.0",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "custom-publish": "^1.0.9"
   },
   "dependencies": {
-    "custom-publish": "^1.0.9",
     "tslib": "^1.10.0"
   }
 }
