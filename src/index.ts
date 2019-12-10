@@ -52,6 +52,7 @@ function browserHttpRequest(
             ajax.onreadystatechange = function () {
                 const res = this
                 if (res.readyState === 4) {
+                    if (res.state === 0) reject(new Error('Connection error with ' + url))
                     resolve({
                         status: res.status,
                         statusText: res.statusText,
