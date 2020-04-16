@@ -1,4 +1,3 @@
-import { hostname } from "os";
 
 declare const window: any
 declare const require: any
@@ -134,4 +133,15 @@ function nodeHttpRequest(
             reject(error)
         }
     });
+}
+
+const serviceEntrypoints: { [service: string]: string } = {}
+
+export function configServiceEntrypoint(service: string, url: string) {
+    serviceEntrypoints[service] = url
+}
+
+export function invokeOperation<A, P>(service: string, operatation: string, args: A): Promise<P> {
+    return httpRequest('POST', serviceEntrypoints[service] + '/' + operatation, JSON.stringify(args))
+        .then((res) => JSON.parse(res.response))
 }
