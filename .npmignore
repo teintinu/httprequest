@@ -1,0 +1,4 @@
+**/_tests_/**
+**/_tests__/**
+jest.config.js
+coverage
